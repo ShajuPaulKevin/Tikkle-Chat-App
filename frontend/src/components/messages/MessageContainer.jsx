@@ -3,7 +3,7 @@ import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 
 const MessageContainer = () => {
-  const NochatsSelected = true;
+  const NochatsSelected = false;
 
   return (
     <div className="md:min-w-[450px] flex flex-col">
