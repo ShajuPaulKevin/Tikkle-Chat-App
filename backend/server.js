@@ -20,7 +20,7 @@ app.use(cookiesParser());
 app.use(cors());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Replace with your frontend URL
+    origin: "http://localhost:3000", // Replace with your frontend URL
     methods: "GET,POST,PUT,DELETE", // Allow specific HTTP methods
     credentials: true, // Allow cookies
   })

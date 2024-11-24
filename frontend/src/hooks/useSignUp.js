@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignUp = () => {
+  const { authUser, setAuthUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const signup = async ({
     fullName,
@@ -20,7 +22,7 @@ const useSignUp = () => {
     if (!success) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/signup`, {
+      const res = await fetch(`/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -32,6 +34,12 @@ const useSignUp = () => {
         }),
       });
       const data = await res.json();
+      setAuthUser(data);
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      localStorage.setItem("auth-user", JSON.stringify(data));
       console.log(data);
     } catch (error) {
       toast.error(error.message);
