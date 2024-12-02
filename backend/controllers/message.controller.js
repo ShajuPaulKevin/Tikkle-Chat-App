@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId, io } from "../sockets/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -27,8 +28,6 @@ export const sendMessage = async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
-    // sockets.io
-
     // these will run one after the other
 
     // await conversation.save();
@@ -36,6 +35,12 @@ export const sendMessage = async (req, res) => {
 
     // these will run simultaneously
     await Promise.all([conversation.save(), newMessage.save()]);
+    // sockets.io
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
     res.status(201).json(newMessage);
   } catch (error) {
