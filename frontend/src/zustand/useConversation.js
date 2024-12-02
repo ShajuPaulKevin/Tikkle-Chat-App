@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 const useConversation = create((set) => ({
-  selctedConversation: null,
-  setSelectedConversation: (selctedConversation) =>
-    set({ selctedConversation }),
+  selectedConversation: null,
+  setSelectedConversation: (selectedConversation) =>
+    set({ selectedConversation }),
   messagess: [],
   setMessages: (messagess) => set({ messagess }),
 }));
