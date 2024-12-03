@@ -25,7 +25,8 @@ const MessageContainer = () => {
         </>
       )}
       <Messages></Messages>
-      <MessageInput></MessageInput>
+
+      {selectedConversation && <MessageInput></MessageInput>}
     </div>
   );
 };
